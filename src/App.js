@@ -1,5 +1,6 @@
 import React from 'react';
-import BookmarkList from './BookmarkList';
+import SearchAndFilter from './components/SearchAndFilter';
+import BookList from './components/BookList';
 import './App.css';
 
 //App
@@ -7,19 +8,37 @@ import './App.css';
 //container for results
 //results themselves
 
-function App() {
-  return (
-    <div className="main-div">
-      <form class="main-form">
-        <label for="search-input">Search</label>
-        <input id="search-input" type="text"></input>
-      </form>
-      <div class="results" id="results">
-        <BookmarkList />
-        </div>
-    </div>
+class App extends React.Component {
+  state = {
+    items: []
+  }
 
-  );
+  fetchBooks = (e, formInput) => {
+    e.preventDefault();
+    const url = 'https://www.googleapis.com/books/v1/volumes?q='
+    const search = formInput;
+    fetch(url+search)
+        .then(res => res.json())
+        .then(results => this.setState({ items: results.items }));
+  }
+
+  render() {
+    console.log(this.state.items);
+    return (
+      <div className="app">
+        <header>Books</header>
+        <main>
+          <SearchAndFilter 
+            fetchBooks = {this.fetchBooks}
+          />
+          <BookList 
+            state = {this.state}
+          />
+        </main>
+      </div>
+    )
+  }
+
 }
 
 export default App;
