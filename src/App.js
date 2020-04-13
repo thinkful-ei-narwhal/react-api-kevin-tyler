@@ -13,11 +13,17 @@ class App extends React.Component {
     items: []
   }
 
-  fetchBooks = (e, formInput) => {
+  fetchBooks = (e, formInput, dropState) => {
     e.preventDefault();
     const url = 'https://www.googleapis.com/books/v1/volumes?q='
     const search = formInput;
-    fetch(url+search)
+    let filter = '';
+    if (dropState === null) {
+      filter = ''
+    } else {
+      filter = `&filter=${dropState}`
+    }
+    fetch(url+search+filter)
         .then(res => res.json())
         .then(results => this.setState({ items: results.items }));
   }
