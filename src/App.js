@@ -1,25 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
+import BookmarkList from './BookmarkList';
 import './App.css';
+
+//App
+//searching for parameters
+//container for results
+//results themselves
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="main-div">
+      <form class="main-form">
+        <label for="search-input">Search</label>
+        <input id="search-input" type="text"></input>
+      </form>
+      <div class="results" id="results">
+        <BookmarkList />
+        </div>
     </div>
+
   );
 }
 
